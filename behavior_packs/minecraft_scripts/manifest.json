@@ -6,21 +6,21 @@
 		"license": "MIT"
 	},
 	"header": {
-		"name": "Minecraft Scripts",
-		"description": "test0",
+		"name": "minecraft_scripts",
+		"description": "Currently includes a minecraft_scripts 'Hello World' implementation",
 		"uuid": "779a251f-387b-407a-949a-604110c9c1e0",
 		"version": [0, 0, 1],
 		"min_engine_version": [1, 16, 0]
 	},
 	"modules": [
 		{
-			"description": "test1",
+			"description": "minecraft_scripts Data",
 			"type": "data",
 			"uuid": "a9307f1b-d184-4d4d-aed0-c47fa7ce3ac6",
 			"version": [0, 0, 1]
 		},
 		{
-			"description": "",
+			"description": "minecraft_scripts entry point",
 			"uuid": "7312035b-e41d-4119-a5b0-428b212e58db",
 			"version": [1, 0, 0],
 			"type": "script",

@@ -1,24 +1,13 @@
-import { BlockLocation, ChatEvent, MinecraftBlockTypes, world } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes, Player } from "mojang-minecraft";
 import Characters from "../utilities/characters";
 
-const characters = new Characters(MinecraftBlockTypes.dirt, 5);
-const overworld = world.getDimension("overworld");
+const size = 5;
+const offset = 2;
+const characters = new Characters(MinecraftBlockTypes.dirt, size);
 
-world.events.chat.subscribe((e: ChatEvent) => {
-  if (e.message === "build") {
-    try {
-      build(e);
-    }
-    catch (e) {
-      overworld.runCommand(`say ${e}`);
-    }
-  }
-})
-
-function build(e: ChatEvent) {
-  const player = e.sender;
+export default function helloWorld(player: Player) {
   const location = player.location;
-  const startingBlock = new BlockLocation(location.x + 5, location.y, location.z);
+  const startingBlock = new BlockLocation(location.x + size, location.y, location.z);
   let currentLocation = startingBlock;
   const helloWord = [
     (b: BlockLocation) => characters.H(b),
@@ -34,22 +23,21 @@ function build(e: ChatEvent) {
     (b: BlockLocation) => characters.L(b),
     (b: BlockLocation) => characters.D(b),
   ]
-  helloWord.forEach((fnc) => {
-    fnc(currentLocation);
+  helloWord.forEach((callback) => {
+    callback(currentLocation);
     currentLocation = offsetLetter(currentLocation);
   });
   currentLocation = offsetWord(currentLocation);
-  worldWord.forEach((fnc) => {
-    fnc(currentLocation);
+  worldWord.forEach((callback) => {
+    callback(currentLocation);
     currentLocation = offsetLetter(currentLocation);
   });
 }
 
 function offsetLetter(current: BlockLocation) {
-  // size (5) + offset (2) = 7
-  return new BlockLocation(current.x - 7, current.y, current.z)
+  return new BlockLocation(current.x - size - offset, current.y, current.z)
 }
 
 function offsetWord(current: BlockLocation) {
-  return new BlockLocation(current.x - 2, current.y, current.z);
+  return new BlockLocation(current.x - offset, current.y, current.z);
 }
