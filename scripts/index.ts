@@ -1,6 +1,7 @@
 import { world, ChatEvent, Player } from 'mojang-minecraft';
-import currentBuild from './client/currentBuild';
-import helloWorld from './client/helloWorld';
+import currentBuild from './library/currentBuild';
+import helloWorld from './library/helloWorld';
+import makeBuilding from './library/makeBuilding';
 import logger from './utilities/logger';
 
 world.events.chat.subscribe((chatEvent: ChatEvent) => {
@@ -19,6 +20,7 @@ world.events.chat.subscribe((chatEvent: ChatEvent) => {
  function getEvent(message: string): ((player: Player) => void) | undefined {
   switch (message) {
     case "build": return currentBuild;
+    case "makeBuilding": return makeBuilding;
     case "helloWorld": return helloWorld;
     default: return undefined;
   }

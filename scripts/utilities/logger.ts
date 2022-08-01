@@ -2,7 +2,7 @@ import { world } from "mojang-minecraft";
 
 class Logger {
   say(message: string, description: string = "") {
-    if (message && description) {
+    if (message && description !== "") {
       world.getDimension("overworld").runCommand(`say ${message}: ${description}`);
     }
     else {

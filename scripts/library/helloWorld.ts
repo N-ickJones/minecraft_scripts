@@ -1,14 +1,13 @@
 import { BlockLocation, MinecraftBlockTypes, Player } from "mojang-minecraft";
 import Characters from "../utilities/characters";
+import playerUtils from "../utilities/playerUtils";
 
 const size = 5;
 const offset = 2;
 const characters = new Characters(MinecraftBlockTypes.dirt, size);
 
 export default function helloWorld(player: Player) {
-  const location = player.location;
-  const startingBlock = new BlockLocation(location.x + size, location.y, location.z);
-  let currentLocation = startingBlock;
+  let location = playerUtils.getPlayerDirectionBlockExact(player);
   const helloWord = [
     (b: BlockLocation) => characters.H(b),
     (b: BlockLocation) => characters.E(b),
@@ -24,13 +23,13 @@ export default function helloWorld(player: Player) {
     (b: BlockLocation) => characters.D(b),
   ]
   helloWord.forEach((callback) => {
-    callback(currentLocation);
-    currentLocation = offsetLetter(currentLocation);
+    callback(location);
+    location = offsetLetter(location);
   });
-  currentLocation = offsetWord(currentLocation);
+  location = offsetWord(location);
   worldWord.forEach((callback) => {
-    callback(currentLocation);
-    currentLocation = offsetLetter(currentLocation);
+    callback(location);
+    location = offsetLetter(location);
   });
 }
 
